@@ -42,7 +42,7 @@ example output:
         "owes": "almog",
         "amount": 28.0
     }
-]```
+] ```
 it gets this information by first separating the ones who owe who and the ones who are owed. Then proceeds to calculate how much the owers owe the owed depending on the average everyone should be paying.
 
 
