@@ -21,7 +21,8 @@ which reads the roommates json file and loads it into a variable called roommate
 once the request is processed, the microservice will return a JSON response containing the calculated debts, as in who owes who what.
 
 example output:
-```[
+```
+[
     {
         "name": "kabir",
         "owes": "Jemma",
