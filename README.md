@@ -4,15 +4,18 @@
 send a JSON POST request to the endpoint. The request should contain a list of roommates, their utility contributions, and the amount they for the utility paid.
 
 examples json file:
-```[
+```
+[
     {"name": "almog","utility": "water","amount": 120},
     {"name": "kabir","utility": "none","amount": 0},
     {"name": "Jemma", "utility": "electricy", "amount": 160},
     {"name": "Emily", "utility": "wifi", "amount": 35},
     {"name": "Fitz", "utility": "none", "amount": 0}
-]```
+]
+```
 and the python file gets this information by
-```with open("roommates.json", "r") as file:
+```
+with open("roommates.json", "r") as file:
     roommates = json.load(file)
 ```
 which reads the roommates json file and loads it into a variable called roommates
