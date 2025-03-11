@@ -1,9 +1,13 @@
 # implementation-A
 
-## A. To request data from the microservice:
-send a JSON POST request to the endpoint. The request should contain a list of roommates, their utility contributions, and the amount they for the utility paid.
+## How it works
+1. The client writes roommate data to roommates.json.
+2. The server reads roommates.json, processes the data, and calculates how much each roommate owes.
+3. The results are written to output.json.
+4. The client reads output.json to retrieve the calculated debts.
 
-examples json file:
+## A. To request data from the microservice:
+To request data, write a JSON object to roommates.json with a list of roommates, their utility contributions, and the amounts paid. Example request:
 ```
 [
     {"name": "almog","utility": "water","amount": 120},
@@ -11,18 +15,27 @@ examples json file:
     {"name": "Jemma", "utility": "electricy", "amount": 160},
     {"name": "Emily", "utility": "wifi", "amount": 35},
     {"name": "Fitz", "utility": "none", "amount": 0}
+] 
+```
+Writing the Request in Python
+```
+import json
+
+roommates = [
+    {"name": "almog", "utility": "water", "amount": 120},
+    {"name": "kabir", "utility": "none", "amount": 0},
+    {"name": "Jemma", "utility": "electricity", "amount": 160},
+    {"name": "Emily", "utility": "wifi", "amount": 35},
+    {"name": "Fitz", "utility": "none", "amount": 0}
 ]
-```
-and the python file gets this information by
-```
-with open("roommates.json", "r") as file:
-    roommates = json.load(file)
+
+with open("roommates.json", "w") as file:
+    json.dump(roommates, file, indent=4)
 ```
 which reads the roommates json file and loads it into a variable called roommates
 
 ## B. To receive the data from the microservice:
-once the request is processed, the microservice will return a JSON response containing the calculated debts, as in who owes who what.
-
+Once the server processes the request, it writes the calculated debts to output.json.
 example output:
 ```
 [
@@ -48,7 +61,19 @@ example output:
     }
 ]
 ```
-it gets this information by first separating the ones who owe who and the ones who are owed. Then proceeds to calculate how much the owers owe the owed depending on the average everyone should be paying.
+Reading response in python:
+```
+import json
 
+with open("output.json", "r") as file:
+    transactions = json.load(file)
+    print(transactions)  # Display calculated debts
+```
+1. The server starts by setting roommates.json to "ready".
+2. It waits for the client to write roommate data.
+3. Once the client writes the data, the server reads it and calculates how much each person owes.
+4. It writes the results to output.json.
+5. The client reads output.json to retrieve the calculations.
+6. The process ends when the server detects "stop" in roommates.json.
 
 ## C. refer to UML.pdf
